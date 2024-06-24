@@ -25,6 +25,7 @@ sequenceDiagram
     end
     PumpTechContract ->> ERC404Contract: Mint 1000 TRUMP
     ERC404Contract ->> PumpTechContract: Transfer 10000 TRUMP
+    Note over PumpTechContract: Calculate TRUMP to transfer<br />using Bancor's Power formula
     PumpTechContract ->> Minter: Transfer 1 ETH worth of TRUMP
     Note over PumpTechContract: Keep remaining TRUMP
 ```
@@ -60,7 +61,7 @@ sequenceDiagram
         break If BondingCurve halted
             PumpTechContract-->>Trader: Buy Fail
         end
-        Note over PumpTechContract: Calculate TRUMP to transfer
+        Note over PumpTechContract: Calculate TRUMP to transfer<br />using Bancor's Power formula
         PumpTechContract ->> Trader: Transfer 1 ETH worth of TRUMP
         Note over PumpTechContract: If Market Cap reached MinimumFundsForLP<br/>1. Halt BondingCurve trade<br/>2. Add initial LP to UniswapV2AMM
         activate UniswapV2AMM
@@ -73,7 +74,7 @@ sequenceDiagram
         break If BondingCurve halted
         PumpTechContract-->>Trader: Sell Fail
         end
-        Note over PumpTechContract: Calculate ETH to transfer
+        Note over PumpTechContract: Calculate ETH to transfer<br />using Bancor's Power formula
         PumpTechContract ->> Trader: Transfer 1 TRUMP worth of ETH
     end
 ```
