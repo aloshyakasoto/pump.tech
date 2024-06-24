@@ -19,14 +19,17 @@ sequenceDiagram
     actor Minter
     participant PumpTechContract
     participant ERC404Contract
+    participant ProtocolTreasury
     Minter ->> PumpTechContract: Mint TRUMP for 1 ETH
     break If insufficient ETH
         PumpTechContract-->>Minter: Mint Fail
     end
+    Note over PumpTechContract: Collect `MintDee`
+    PumpTechContract ->> ProtocolTreasury: Transfer `MintDee`
     PumpTechContract ->> ERC404Contract: Mint 1000 TRUMP
     ERC404Contract ->> PumpTechContract: Transfer 10000 TRUMP
     Note over PumpTechContract: Calculate TRUMP to transfer<br />using Bancor's Power formula
-    PumpTechContract ->> Minter: Transfer 1 ETH worth of TRUMP
+    PumpTechContract ->> Minter: Transfer 1 ETH (minus `MintDee`) worth of TRUMP
     Note over PumpTechContract: Keep remaining TRUMP
 ```
 
